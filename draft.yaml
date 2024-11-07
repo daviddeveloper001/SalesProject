@@ -1,0 +1,38 @@
+models:
+  Product:
+    name: string:400
+    price: decimal:10,2
+    description: longtext nullable
+    relationships:
+      hasMany: Sale
+
+  Sale:
+    total_amount: decimal:10,2
+    user_id: unsignedInteger
+    relationships:
+      belongsTo: User
+
+  SaleItem:
+    quantity: integer
+    price: decimal:10,2
+    sale_id: unsignedInteger
+    product_id: unsignedInteger
+    relationships:
+      belongsTo: Sale Product
+
+controllers:
+  Product:
+    index:
+      query: all
+      render: product.index with:products
+    create:
+      render: product.create
+    store:
+      validate: name, price, description
+      save: product
+      redirect: product.index
+    show:
+      render: product.show with:product
+    destroy:
+      delete: product
+      redirect: product.index
