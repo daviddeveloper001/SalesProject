@@ -35,6 +35,7 @@
                                         <th scope="col">PRECIO</th>
                                         <th scope="col">DESCRIPCIÓN</th>
                                         <th scope="col">CANTIDAD</th>
+                                        <th scope="col">TOTAL</th>
                                         <th scope="col">FECHA</th>
                                         <th scope="col">Accion</th>
                                     </tr>
@@ -46,14 +47,31 @@
                                                 {{ $sale->id }}
                                             </td>
                                             <td>
-                                                {{ $sale->user->name }}
+                                                @foreach ($sale->items as $item)
+                                                    {{ $item->product->name ?? 'Producto no disponible' }}
+                                                @endforeach
                                             </td>
                                             <td>
-                                                {{ $sale->price }}
+                                                @foreach ($sale->items as $item)
+                                                    {{ $item->product->FormatPrice ?? 'Producto no disponible' }}
+                                                @endforeach
                                             </td>
 
                                             <td>
-                                                {{ $sale->FormatDescription }}
+                                                @foreach ($sale->items as $item)
+                                                    {{ $item->product->FormatDescription ?? 'Producto no disponible' }}
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ($sale->items as $item)
+                                                    {{ $item->quantity ?? 'Producto no disponible' }}
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                {{ $sale->FormattedPrice }}
+                                            </td>
+                                            <td>
+                                                {{ $sale->created_at }}
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">

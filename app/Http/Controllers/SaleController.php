@@ -14,7 +14,8 @@ class SaleController extends Controller
     private $pagination = 10;
     public function index()
     {
-        $sales = Sale::latest()->with(['user'])->paginate($this->pagination);
+
+        $sales = Sale::latest()->with(['user', 'items.product'])->paginate($this->pagination);
 
 
         return view('sale.index', compact('sales'));

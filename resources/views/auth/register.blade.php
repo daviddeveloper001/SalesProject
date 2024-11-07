@@ -2,7 +2,11 @@
 
 @section('title', 'Registrate')
 @section('title-page', 'Registrate')
+<?php
+use Spatie\Permission\Models\Role;
+$roles = Role::whereNot('name', 'auxiliar de bodega')->get();
 
+?>
 @section('content')
     <div class="container mt--8 pb-5">
         <!-- Table -->
@@ -56,10 +60,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Rol</option>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Usuario</option>
+                                <select class="form-control" id="exampleFormControlSelect1" name="role">
+                                    <option>Seleeciona un rol</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="text-center">
