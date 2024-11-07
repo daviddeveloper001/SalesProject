@@ -1,5 +1,6 @@
 @extends('layouts.template.app')
 
+@section('title', 'Productos')
 @section('content')
     <div class="card shadow mt-5">
         <div class="card-header border-0">
@@ -29,7 +30,7 @@
                 <div class="form-group">
                     <label for="name">Nombre del Producto:</label>
                     <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Nombre del Producto" value="{{ old('name', $product->name) }}" required>
+                        placeholder="Nombre del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
                     @error('name')
                         <span class="text-danger">
                             {{ $message }}
@@ -39,10 +40,10 @@
 
 
                 <div class="form-group">
-                    <label for="name">Precio:</label>
-                    <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Nombre del Producto" value="{{ old('name', $product->name) }}" required>
-                    @error('name')
+                    <label for="price">Precio:</label>
+                    <input type="number" id="price" name="price" class="form-control"
+                        placeholder="Precio del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                    @error('price')
                         <span class="text-danger">
                             {{ $message }}
                         </span>

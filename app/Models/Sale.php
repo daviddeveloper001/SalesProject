@@ -35,4 +35,10 @@ class Sale extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getFormattedPriceAttribute($key)
+    {
+        $price = $this->attributes['total_amount'];
+        return number_format($price, 2, ',', '.');
+    }
 }

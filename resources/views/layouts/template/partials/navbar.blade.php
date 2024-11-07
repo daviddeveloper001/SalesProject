@@ -21,17 +21,17 @@
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
 
-                            @if (auth()->user()->photo == null)
+                            {{-- @if (auth()->user()->photo == null)
                                 <img src="{{ asset('img/perfil_default.png') }}" alt="not-available" class="img-fluid">
                             @else
                                 <img src="{{ asset(auth()->user()->photo) }}" alt="photo-profile" class="img-fluid">
-                            @endif
+                            @endif --}}
 
 
                         </span>
-                        <div class="media-body ml-2 d-none d-lg-block">
+                        {{-- <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->FormatName }}</span>
-                        </div>
+                        </div> --}}
                     </div>
                 </a>
                 @include('layouts.template.partials.include.user-option')

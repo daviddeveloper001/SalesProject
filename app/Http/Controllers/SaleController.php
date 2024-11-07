@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\Product;
+use App\Models\SaleItem;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 
@@ -33,7 +35,35 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        //
+        $id = Auth::user()->id;
+
+        $totalAmount = 0;
+
+        $sale = Sale::create([
+            'user_id' => $id,
+            'total_amount' => 0,
+        ]);
+
+        $product = Product::find($request->product);
+        $quantity = $request->quantity;
+
+
+        $productPrice = $product->price;
+        $totalPrice = $quantity * $productPrice;
+
+        SaleItem::create([
+            'sale_id' => $sale->id,
+            'product_id' => $product->id,
+            'quantity' => $quantity,
+            'price' => $productPrice,
+        ]);
+
+        $totalAmount = $totalPrice;
+
+        $sale->total_amount = $totalAmount;
+        $sale->save();
+
+        return redirect()->route('sales-items.index');
     }
 
     /**

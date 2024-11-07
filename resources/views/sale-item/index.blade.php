@@ -48,7 +48,7 @@
                                                 {{ $saleItem->product->name }}
                                             </td>
                                             <td>
-                                                {{ $saleItem->product->FormatPrice }}
+                                                {{ $saleItem->sale->FormattedPrice }}
                                             </td>
 
                                             <td>

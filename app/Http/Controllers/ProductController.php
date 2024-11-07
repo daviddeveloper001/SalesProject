@@ -28,13 +28,13 @@ class ProductController extends Controller
     {
         $product = Product::create($request->validated());
 
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
     }
 
     public function destroy(Request $request, Product $product)
     {
         $product->delete();
 
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
     }
 }

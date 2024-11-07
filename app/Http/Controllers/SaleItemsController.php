@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\SaleItem;
+use Illuminate\View\View;
 use App\Http\Requests\StoreSaleItemRequest;
 use App\Http\Requests\UpdateSaleItemRequest;
-use Illuminate\View\View;
 
 class SaleItemsController extends Controller
 {
@@ -19,7 +20,8 @@ class SaleItemsController extends Controller
 
     public function create()
     {
-        return view('sale-item.create', compact('saleItems'));
+        $products = Product::all();
+        return view('sale-item.create', compact('products'));
     }
 
     /**

@@ -43,4 +43,10 @@ class SaleItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getFormatPriceAttribute()
+    {
+        $price = $this->attributes['price'];
+        return number_format($price, 2, ',', '.');
+    }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.template.app')
-@section('title', 'Hisotrial de Ventas')
+
+@section('title', 'Crear Venta')
+
 @section('content')
     <div class="card shadow mt-5">
         <div class="card-header border-0">
@@ -8,7 +10,7 @@
                     <h3 class="mb-0">Crear Venta</h3>
                 </div>
                 <div class="col text-right">
-                    <a href="{{ route('sales.index') }}" class="btn btn-success">Regresar</a>
+                    <a href="{{ route('sales-items.index') }}" class="btn btn-success">Regresar</a>
                     <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
@@ -24,13 +26,22 @@
                 @endforeach
             @endif
 
-            <form action="{{ route('products.store') }}" method="POST">
+            <form action="{{ route('sales.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Nombre del Producto:</label>
-                    <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Nombre del Producto" value="{{ old('name', $product->name) }}" required>
-                    @error('name')
+                    <label for="cant">Producto:</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Selecciona un producto</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cant">Cantidad:</label>
+                    <input type="number" id="cant" name="cant" class="form-control"
+                        placeholder="Cantidad del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                    @error('cant')
                         <span class="text-danger">
                             {{ $message }}
                         </span>
@@ -39,16 +50,15 @@
 
 
                 <div class="form-group">
-                    <label for="name">Precio:</label>
-                    <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Nombre del Producto" value="{{ old('name', $product->name) }}" required>
-                    @error('name')
+                    <label for="price">Precio:</label>
+                    <input type="number" id="price" name="price" class="form-control"
+                        placeholder="Precio del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                    @error('price')
                         <span class="text-danger">
                             {{ $message }}
                         </span>
                     @enderror
                 </div>
-
 
                 <div class="form-group">
                     <label for="description">Descripción:</label>
