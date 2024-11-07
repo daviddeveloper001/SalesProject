@@ -1,30 +1,30 @@
 <li class="nav-item  active ">
-    <a class="nav-link  active " href="{{ route('dashboard') }}">
+    <a class="nav-link  active " href="{{ route('home') }}">
         <i class="ni ni-tv-2 text-danger"></i>&nbsp;Dashboard
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{ route('specialties.index') }}">
-        <i class="ni ni-briefcase-24 text-blue"></i>&nbsp;Especialidades
+    <a class="nav-link " href="{{-- {{ route('specialties.index') }} --}}">
+        <i class="ni ni-briefcase-24 text-blue"></i>&nbsp;Administración
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{ route('doctors.index') }}">
-        <i class="fas fa-stethoscope text-info"></i>&nbsp;Médicos
+    <a class="nav-link " href="{{-- {{ route('doctors.index') }} --}}">
+        <i class="fas fa-stethoscope text-info"></i>&nbsp;Panel de ventas
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{ route('patients.index') }}">
-        <i class="fas fa-bed text-warning"></i>&nbsp;Pacientes
+    <a class="nav-link " href="{{ route('products.index') }}">
+        <i class="fas fa-bed text-warning"></i>&nbsp;Productos
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{ route('appointments.index')}}">
-        <i class="fas fa-clock text-info"></i>&nbsp;Citas médicas
+    <a class="nav-link " href="{{ route('sales-items.index') }}">
+        <i class="fas fa-clock text-info"></i>&nbsp;Ventas
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{ route('specialties.import')}}">
-        <i class="fas fa-file-excel text-info"></i></i>&nbsp;Importar Documentos
+    <a class="nav-link " href="{{ route('sales.index') }}">
+        <i class="fas fa-file-excel text-info"></i></i>&nbsp;Historial de ventas
     </a>
 </li>

@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('sale_items', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->decimal('price', 10);
-            $table->unsignedInteger('sale_id');
-            $table->unsignedInteger('product_id');
-            $table->foreignId('sale_product_id');
+            $table->decimal('price', 10, 2);
+            $table->foreignId('sale_id');
+            $table->foreignId('product_id');
             $table->timestamps();
         });
     }

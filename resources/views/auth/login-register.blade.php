@@ -20,7 +20,7 @@
 
         @include('auth.partials.login-register-footer')
     </div>
-    @include('layouts.theme.partials.scripts')
+    @include('layouts.template.partials.scripts')
 </body>
 
 </html>

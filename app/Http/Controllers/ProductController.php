@@ -4,37 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(Request $request): Response
+    private $pagination = 10;
+    public function index(Request $request): View
     {
-        $products = Product::all();
+        $products = Product::latest()->paginate($this->pagination);
 
         return view('product.index', compact('products'));
     }
 
-    public function create(Request $request): Response
+    public function create(Product $product): View
     {
-        return view('product.create');
+        return view('product.create', compact('product'));
     }
 
-    public function store(ProductStoreRequest $request): Response
+    public function store(ProductStoreRequest $request)
     {
         $product = Product::create($request->validated());
 
         return redirect()->route('product.index');
     }
 
-    public function show(Request $request, Product $product): Response
-    {
-        return view('product.show', compact('product'));
-    }
-
-    public function destroy(Request $request, Product $product): Response
+    public function destroy(Request $request, Product $product)
     {
         $product->delete();
 

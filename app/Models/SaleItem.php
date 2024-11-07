@@ -20,7 +20,6 @@ class SaleItem extends Model
         'price',
         'sale_id',
         'product_id',
-        'sale_product_id',
     ];
 
     /**
@@ -33,11 +32,15 @@ class SaleItem extends Model
         'price' => 'decimal:2',
         'sale_id' => 'integer',
         'product_id' => 'integer',
-        'sale_product_id' => 'integer',
     ];
 
-    public function saleProduct(): BelongsTo
+    public function sale(): BelongsTo
     {
-        return $this->belongsTo(SaleProduct::class);
+        return $this->belongsTo(Sale::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

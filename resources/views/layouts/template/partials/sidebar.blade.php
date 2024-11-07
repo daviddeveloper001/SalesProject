@@ -33,7 +33,7 @@
                         </span>
                     </div>
                 </a>
-                @include('layouts.theme.partials.include.user-option')
+                @include('layouts.template.partials.include.user-option')
 
             </li>
         </ul>
@@ -71,7 +71,7 @@
             </form>
             <!-- Navigation -->
             <!-- Admin -->
-            @include('layouts.theme.partials.menu-sidebar.menu')
+            @include('layouts.template.partials.menu-sidebar.menu')
 
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -91,12 +91,12 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reports.appointments') }}">
+                    <a class="nav-link" href="{{-- {{ route('reports.appointments') }} --}}">
                         <i class="ni ni-books text-default"></i> Citas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reports.doctors') }}">
+                    <a class="nav-link" href="{{-- {{ route('reports.doctors') }} --}}">
                         <i class="ni ni-chart-bar-32 text-warning"></i> Desempeño médicos
                     </a>
                 </li>

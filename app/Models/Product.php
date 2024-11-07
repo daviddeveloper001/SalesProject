@@ -35,4 +35,19 @@ class Product extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
+
+    public function getFormatDescriptionAttribute()
+    {
+        $description = $this->attributes['description'];
+
+        return $description = substr($description, 0, 40);
+    }
+
+    public function getFormatPriceAttribute()
+    {
+        $price = $this->attributes['price'];
+
+        return $price = number_format($price, 2,);
+    }
 }

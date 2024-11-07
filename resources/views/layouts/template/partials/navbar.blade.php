@@ -20,7 +20,7 @@
                     aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            
+
                             @if (auth()->user()->photo == null)
                                 <img src="{{ asset('img/perfil_default.png') }}" alt="not-available" class="img-fluid">
                             @else
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </a>
-                @include('layouts.theme.partials.include.user-option')
+                @include('layouts.template.partials.include.user-option')
             </li>
         </ul>
     </div>

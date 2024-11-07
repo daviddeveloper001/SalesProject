@@ -3,9 +3,9 @@ created:
     - database/factories/ProductFactory.php
     - database/factories/SaleFactory.php
     - database/factories/SaleItemFactory.php
-    - database/migrations/2024_11_07_012756_create_products_table.php
-    - database/migrations/2024_11_07_012757_create_sales_table.php
-    - database/migrations/2024_11_07_012758_create_sale_items_table.php
+    - database/migrations/2024_11_07_020323_create_products_table.php
+    - database/migrations/2024_11_07_020324_create_sales_table.php
+    - database/migrations/2024_11_07_020325_create_sale_items_table.php
     - app/Models/Product.php
     - app/Models/Sale.php
     - app/Models/SaleItem.php
@@ -17,7 +17,7 @@ created:
 updated:
     - routes/web.php
 models:
-    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
+    User: {  }
     Product: { name: 'string:400', price: 'decimal:10,2', description: 'longtext nullable', relationships: { hasMany: Sale } }
     Sale: { total_amount: 'decimal:10,2', user_id: unsignedInteger, relationships: { belongsTo: User } }
-    SaleItem: { quantity: integer, price: 'decimal:10,2', sale_id: unsignedInteger, product_id: unsignedInteger, relationships: { belongsTo: 'Sale Product' } }
+    SaleItem: { quantity: integer, price: 'decimal:10,2', sale_id: unsignedInteger, product_id: unsignedInteger, relationships: { belongsTo: 'Sale, Product' } }

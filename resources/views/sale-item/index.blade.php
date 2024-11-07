@@ -1,6 +1,6 @@
 @extends('layouts.template.app')
 
-@section('title', 'Productos')
+@section('title', 'Ventas')
 
 @section('content')
     <div class="row mt-5">
@@ -9,26 +9,12 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col mt-3">
-                            <h3 class="mb-0">Productos</h3>
+                            <h3 class="mb-0">Registos Ventas de Productos</h3>
                         </div>
                         <div class="col text-right">
-                            <a href="{{ route('products.create') }}" class="btn btn-sm btn btn-default">Nuevo Producto</a>
+                            <a href="{{ route('sales.create') }}" class="btn btn-sm btn btn-default">Nueva Venta</a>
                         </div>
                     </div>
-                    {{-- <div class="form-group mt-3 row">
-                        <div class="col-md-6 ml-auto">
-                            <form action="" method="get">
-                                <div class="input-group">
-                                    <input class="form-control" type="search" placeholder="Buscar Producto"
-                                        name="filterValue">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="input-group-text"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="card-body">
                     @if (session('notification'))
@@ -38,7 +24,7 @@
                     @endif
                 </div>
                 <div class="table-responsive">
-                    @if (!empty($products))
+                    @if (!empty($saleItems))
                         <table class="table align-items-center table-flush">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
@@ -47,24 +33,34 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">PRECIO</th>
                                         <th scope="col">DESCRIPCIÓN</th>
-                                        <th scope="col">Accion</th>
+                                        <th scope="col">CANTIDAD</th>
+                                        <th scope="col">FECHA</th>
+                                        <th scope="col">ACCION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($products as $product)
+                                    @forelse ($saleItems as $saleItem)
                                         <tr>
                                             <td>
-                                                {{ $product->id }}
+                                                {{ $saleItem->id }}
                                             </td>
                                             <td>
-                                                {{ $product->name }}
+                                                {{ $saleItem->product->name }}
                                             </td>
                                             <td>
-                                                {{ $product->FormatPrice }}
+                                                {{ $saleItem->product->FormatPrice }}
                                             </td>
 
                                             <td>
-                                                {{ $product->FormatDescription }}
+                                                {{ $saleItem->product->FormatDescription }}
+                                            </td>
+
+                                            <td>
+                                                {{ $saleItem->quantity }}
+                                            </td>
+
+                                            <td>
+                                                {{ $saleItem->created_at }}
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -97,7 +93,7 @@
                     @endif
                 </div>
                 <div class="card-footer py-4">
-                    {{ $products->links('pagination::bootstrap-4') }}
+                    {{ $saleItems->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
