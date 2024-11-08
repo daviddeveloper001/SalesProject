@@ -5,14 +5,14 @@
     </ul>
 @else
     <h6 class="navbar-heading text-muted">Menú</h6>
-    @role('doctor')
+    @role('auxiliar de bodega')
         <ul class="navbar-nav">
-            @include('layouts.template.partials.menu-sidebar.doctor')
+            @include('layouts.template.partials.menu-sidebar.auxiliar-de-bodega')
         </ul>
     @else
-        @role('patient')
+        @role('vendedor')
             <ul class="navbar-nav">
-                @include('layouts.template.partials.menu-sidebar.patient')
+                @include('layouts.template.partials.menu-sidebar.vendedor')
             </ul>
         @endrole
     @endrole

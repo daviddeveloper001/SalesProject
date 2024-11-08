@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="cant">Cantidad:</label>
                     <input type="number" id="cant" name="cant" class="form-control"
-                        placeholder="Cantidad del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                        placeholder="Cantidad del Producto" required>
                     @error('cant')
                         <span class="text-danger">
                             {{ $message }}
@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label for="price">Precio:</label>
                     <input type="number" id="price" name="price" class="form-control"
-                        placeholder="Precio del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                        placeholder="Precio del Producto" required>
                     @error('price')
                         <span class="text-danger">
                             {{ $message }}
@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                     <label for="description">Descripción:</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Descripción">{{ old('description', $product->description) }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Descripción"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn btn-primary">Guardar</button>

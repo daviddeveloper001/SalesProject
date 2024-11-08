@@ -4,7 +4,7 @@
 @section('title-page', 'Registrate')
 <?php
 use Spatie\Permission\Models\Role;
-$roles = Role::whereNot('name', 'auxiliar de bodega')->get();
+$roles = Role::whereNot('name', 'admin')->get();
 
 ?>
 @section('content')

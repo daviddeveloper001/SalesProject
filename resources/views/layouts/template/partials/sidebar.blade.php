@@ -72,6 +72,19 @@
             <!-- Navigation -->
             <!-- Admin -->
             @include('layouts.template.partials.menu-sidebar.menu')
+
+            <hr class="my-3">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('formLogout').submit();">
+                        <i class="fas fa-sign-in-alt"></i>&nbsp;Cerrar sesión
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST" style="display: none;" id="formLogout">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

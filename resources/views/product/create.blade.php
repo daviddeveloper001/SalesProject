@@ -75,6 +75,7 @@
                     if (data.success) {
                         $('#product-list').append(`<div>${data.product.name}</div>`);
                         $('#create-product-form')[0].reset();
+                        alert("Producto creado exitosamente.");
                     }
                 },
                 error: function(xhr) {

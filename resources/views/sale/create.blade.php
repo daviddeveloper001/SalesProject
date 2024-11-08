@@ -58,21 +58,17 @@
     <script>
         $(document).ready(function() {
             $('#create-sale-form').on('submit', function(e) {
-                e.preventDefault(); // Evitar el envío del formulario normal
+                e.preventDefault();
 
                 $.ajax({
-                    url: $(this).attr('action'), // Usar la acción del formulario
+                    url: $(this).attr('action'),
                     method: 'POST',
-                    data: $(this).serialize(), // Serializar los datos del formulario
+                    data: $(this).serialize(),
                     success: function(data) {
                         if (data.success) {
                             alert("Venta creada exitosamente.");
-                            // Aquí puedes actualizar la tabla de elementos vendidos o limpiar el formulario
                             $('#create-sale-form')[0]
-                        .reset(); // Limpiar el formulario si es necesario
-
-                            // Aquí puedes añadir el nuevo ítem vendido a la tabla si lo deseas, por ejemplo:
-                            // $('#sale-items-list tbody').append(` ... `); // Agregar el nuevo registro a la tabla de ventas.
+                                .reset();
                         } else {
                             alert("Ocurrió un error al crear la venta.");
                         }
@@ -80,7 +76,7 @@
                     error: function(xhr) {
                         const errors = xhr.responseJSON.errors;
                         $.each(errors, function(index, value) {
-                            alert(value[0]); // Mostrar el primer error de cada campo
+                            alert(value[0]);
                         });
                     }
                 });
