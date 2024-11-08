@@ -45,7 +45,7 @@ class SaleController extends Controller
             'total_amount' => 0,
         ]);
 
-        $product = Product::find($request->product);
+        $product = Product::find($request->idProduct);
         $quantity = $request->quantity;
 
 

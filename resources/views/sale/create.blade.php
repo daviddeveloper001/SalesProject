@@ -30,7 +30,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="cant">Producto:</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="product">
+                    <select class="form-control" id="exampleFormControlSelect1" name="idProduct">
                         <option>Selecciona un producto</option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -46,25 +46,6 @@
                             {{ $message }}
                         </span>
                     @enderror
-                </div>
-
-
-                <div class="form-group">
-                    <label for="price">Precio:</label>
-                    <input type="number" id="price" name="price" class="form-control"
-                        placeholder="Precio del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
-                    @error('price')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                    @enderror
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="description">Descripción:</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Descripción">{{ old('description', $product->description) }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn btn-primary">Guardar</button>

@@ -11,9 +11,7 @@
                         <div class="col mt-3">
                             <h3 class="mb-0">Historial de Ventas</h3>
                         </div>
-                        <div class="col text-right">
-                            <a href="{{ route('sales.create') }}" class="btn btn-sm btn btn-default">Nueva Venta</a>
-                        </div>
+
                     </div>
 
                 </div>
@@ -53,18 +51,18 @@
                                             </td>
                                             <td>
                                                 @foreach ($sale->items as $item)
-                                                    {{ $item->product->FormatPrice ?? 'Producto no disponible' }}
+                                                    {{ $item->product->FormatPrice ?? 'Precio no disponible' }}
                                                 @endforeach
                                             </td>
 
                                             <td>
                                                 @foreach ($sale->items as $item)
-                                                    {{ $item->product->FormatDescription ?? 'Producto no disponible' }}
+                                                    {{ $item->product->FormatDescription ?? 'Descripción no disponible' }}
                                                 @endforeach
                                             </td>
                                             <td>
                                                 @foreach ($sale->items as $item)
-                                                    {{ $item->quantity ?? 'Producto no disponible' }}
+                                                    {{ $item->quantity ?? 'Cantidad no disponible' }}
                                                 @endforeach
                                             </td>
                                             <td>
