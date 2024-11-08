@@ -72,35 +72,6 @@
             <!-- Navigation -->
             <!-- Admin -->
             @include('layouts.template.partials.menu-sidebar.menu')
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('formLogout').submit();">
-                        <i class="fas fa-sign-in-alt"></i>&nbsp;Cerrar sesión
-                    </a>
-                    <form action="{{ route('logout') }}" method="POST" style="display: none;" id="formLogout">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
-
-            <hr class="my-3">
-            <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Reportes</h6>
-            <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{-- {{ route('reports.appointments') }} --}}">
-                        <i class="ni ni-books text-default"></i> Citas
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{-- {{ route('reports.doctors') }} --}}">
-                        <i class="ni ni-chart-bar-32 text-warning"></i> Desempeño médicos
-                    </a>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>

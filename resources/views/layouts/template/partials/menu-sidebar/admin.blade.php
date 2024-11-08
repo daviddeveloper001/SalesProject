@@ -4,16 +4,6 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link " href="{{-- {{ route('specialties.index') }} --}}">
-        <i class="ni ni-briefcase-24 text-blue"></i>&nbsp;Administración
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link " href="{{-- {{ route('doctors.index') }} --}}">
-        <i class="fas fa-stethoscope text-info"></i>&nbsp;Panel de ventas
-    </a>
-</li>
-<li class="nav-item">
     <a class="nav-link " href="{{ route('products.index') }}">
         <i class="fas fa-bed text-warning"></i>&nbsp;Productos
     </a>

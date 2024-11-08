@@ -7,13 +7,23 @@ use App\Models\SaleItem;
 use Illuminate\View\View;
 use App\Http\Requests\StoreSaleItemRequest;
 use App\Http\Requests\UpdateSaleItemRequest;
+use Illuminate\Http\Request;
 
 class SaleItemsController extends Controller
 {
     private $pagination = 5;
-    public function index(): View
+    public function index(Request $request): View
     {
-        $saleItems = SaleItem::with(['sale', 'product'])->latest()->paginate($this->pagination);
+
+        $saleItems = SaleItem::latest()
+            ->with(['sale', 'product'])
+            ->paginate($this->pagination);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'saleItems' => $saleItems
+            ]);
+        }
 
         return view('sale-item.index', compact('saleItems'));
     }
@@ -24,43 +34,22 @@ class SaleItemsController extends Controller
         return view('sale-item.create', compact('products'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreSaleItemRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SaleItem $saleItem)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SaleItem $saleItem)
+    public function destroy(Request $request, SaleItem $saleItem)
     {
-        //
-    }
+        $saleItem->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSaleItemRequest $request, SaleItem $saleItem)
-    {
-        //
-    }
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true
+            ]);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SaleItem $saleItem)
-    {
-        //
+        return redirect()->route('sales-items.index');
     }
 }

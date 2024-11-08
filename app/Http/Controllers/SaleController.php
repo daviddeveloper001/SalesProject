@@ -8,22 +8,25 @@ use App\Models\SaleItem;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
     private $pagination = 10;
-    public function index()
+    public function index(Request $request)
     {
 
         $sales = Sale::latest()->with(['user', 'items.product'])->paginate($this->pagination);
 
+        if ($request->ajax()) {
+            return response()->json([
+                'saleItems' => $sales
+            ]);
+        }
 
         return view('sale.index', compact('sales'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $products = Product::all();
@@ -31,14 +34,12 @@ class SaleController extends Controller
         return view('sale.create', compact('products'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreSaleRequest $request)
     {
         $id = Auth::user()->id;
-
         $totalAmount = 0;
+
 
         $sale = Sale::create([
             'user_id' => $id,
@@ -48,9 +49,9 @@ class SaleController extends Controller
         $product = Product::find($request->idProduct);
         $quantity = $request->quantity;
 
-
         $productPrice = $product->price;
         $totalPrice = $quantity * $productPrice;
+
 
         SaleItem::create([
             'sale_id' => $sale->id,
@@ -64,38 +65,32 @@ class SaleController extends Controller
         $sale->total_amount = $totalAmount;
         $sale->save();
 
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'saleItem' => [
+                    'id' => $sale->id,
+                    'product_name' => $product->name,
+                    'price' => $productPrice,
+                    'quantity' => $quantity,
+                    'created_at' => $sale->created_at,
+                ],
+            ]);
+        }
+
         return redirect()->route('sales-items.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Sale $sale)
+    public function destroy(Request $request, Sale $sale)
     {
-        //
-    }
+        $sale->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Sale $sale)
-    {
-        //
-    }
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSaleRequest $request, Sale $sale)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Sale $sale)
-    {
-        //
+        return redirect()->route('sales.index');
     }
 }

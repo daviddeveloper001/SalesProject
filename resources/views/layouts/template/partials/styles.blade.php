@@ -1,6 +1,6 @@
 <!-- Favicon -->
 <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <!-- Icons -->

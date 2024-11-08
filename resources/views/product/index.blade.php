@@ -15,20 +15,6 @@
                             <a href="{{ route('products.create') }}" class="btn btn-sm btn btn-default">Nuevo Producto</a>
                         </div>
                     </div>
-                    {{-- <div class="form-group mt-3 row">
-                        <div class="col-md-6 ml-auto">
-                            <form action="" method="get">
-                                <div class="input-group">
-                                    <input class="form-control" type="search" placeholder="Buscar Producto"
-                                        name="filterValue">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="input-group-text"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="card-body">
                     @if (session('notification'))
@@ -38,64 +24,41 @@
                     @endif
                 </div>
                 <div class="table-responsive">
-                    @if (!empty($products))
-                        <table class="table align-items-center table-flush">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">PRECIO</th>
-                                        <th scope="col">DESCRIPCIÓN</th>
-                                        <th scope="col">Accion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($products as $product)
-                                        <tr>
-                                            <td>
-                                                {{ $product->id }}
-                                            </td>
-                                            <td>
-                                                {{ $product->name }}
-                                            </td>
-                                            <td>
-                                                {{ $product->FormatPrice }}
-                                            </td>
-
-                                            <td>
-                                                {{ $product->FormatDescription }}
-                                            </td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-
-
-
-                                                    <form class="delete-form" action="{{-- {{ $routeDestroy }} --}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm btn-delete"
-                                                            title="Eliminar"><i class="fas fa-trash"></i></button>
-
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="2" style="text-align: center;">No se encontraron registros</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </table>
-                    @else
-                        <div class="py-5 text-center">
-                            <img src="{{ asset('img/not-result.jpg') }}" alt="No hay registros" style="width:250px;">
-                            <p class="text-muted">No hay registros en la base de datos</p>
-                        </div>
-                    @endif
+                    <table class="table align-items-center table-flush" id="product-list">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">DESCRIPCIÓN</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($products as $product)
+                                <tr id="product-{{ $product->id }}">
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->FormatPrice }}</td>
+                                    <td>{{ $product->FormatDescription }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-danger btn-sm btn-delete"
+                                                data-id="{{ $product->id }}" title="Eliminar">
+                                                <i class="fas fa-trash"> Eliminar</i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">No se encontraron registros</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
+
                 <div class="card-footer py-4">
                     {{ $products->links('pagination::bootstrap-4') }}
                 </div>
@@ -104,3 +67,46 @@
     </div>
 
 @endsection
+@push('javascript')
+    <script>
+        function fetchProducts() {
+            $.ajax({
+                url: `/products}`,
+                method: 'GET',
+                success: function(data) {
+                    $('#product-list').html('');
+                    data.products.data.forEach(product => {
+                        $('#product-list').append(`<div>${product.name}</div>`);
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            fetchProducts();
+            $('.btn-delete').on('click', function() {
+                const productId = $(this).data('id');
+
+                if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+                    $.ajax({
+                        url: `/products/${productId}`,
+                        method: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Elimina la fila del producto del DOM
+                                $(`#product-${productId}`).remove();
+                                alert("Producto eliminado exitosamente.");
+                            }
+                        },
+                        error: function(xhr) {
+                            alert("Ocurrió un error al eliminar el producto.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endpush

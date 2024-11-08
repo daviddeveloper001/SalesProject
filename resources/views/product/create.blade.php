@@ -25,12 +25,12 @@
                 @endforeach
             @endif
 
-            <form action="{{ route('products.store') }}" method="POST">
+            <form action="{{ route('products.store') }}" method="POST" id="create-product-form">
                 @csrf
                 <div class="form-group">
                     <label for="name">Nombre del Producto:</label>
                     <input type="text" id="name" name="name" class="form-control"
-                        placeholder="Nombre del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                        placeholder="Nombre del Producto" required>
                     @error('name')
                         <span class="text-danger">
                             {{ $message }}
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="price">Precio:</label>
                     <input type="number" id="price" name="price" class="form-control"
-                        placeholder="Precio del Producto" {{-- value="{{ old('name', $product->name) }}" --}} required>
+                        placeholder="Precio del Producto" required>
                     @error('price')
                         <span class="text-danger">
                             {{ $message }}
@@ -62,3 +62,25 @@
         </div>
     </div>
 @endsection
+@push('javascript')
+    <script>
+        $('#create-product-form').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ route('products.store') }}',
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.success) {
+                        $('#product-list').append(`<div>${data.product.name}</div>`);
+                        $('#create-product-form')[0].reset();
+                    }
+                },
+                error: function(xhr) {
+                    console.log("Error:", xhr);
+                }
+            });
+        });
+    </script>
+@endpush
