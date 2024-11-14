@@ -35,29 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
-                                <tr id="product-{{ $product->id }}">
-                                    <td>{{ $product->id }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>{{ $product->FormatPrice }}</td>
-                                    <td>{{ $product->FormatDescription }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('products.edit', $product->id) }}"
-                                                class="btn btn-primary btn-sm mr-2 rounded" title="Editar"><i
-                                                    class="fas fa-edit"></i>Editar</a>
-                                            <button type="button" class="btn btn-danger btn-sm btn-delete"
-                                                data-id="{{ $product->id }}" title="Eliminar">
-                                                <i class="fas fa-trash"> Eliminar</i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" style="text-align: center;">No se encontraron registros</td>
-                                </tr>
-                            @endforelse
+
                         </tbody>
                     </table>
                 </div>
@@ -71,45 +49,5 @@
 
 @endsection
 @push('javascript')
-    <script>
-        function fetchProducts() {
-            $.ajax({
-                url: `/products}`,
-                method: 'GET',
-                success: function(data) {
-                    $('#product-list').html('');
-                    data.products.data.forEach(product => {
-                        $('#product-list').append(`<div>${product.name}</div>`);
-                    });
-                }
-            });
-        }
-
-        $(document).ready(function() {
-            fetchProducts();
-            $('.btn-delete').on('click', function() {
-                const productId = $(this).data('id');
-
-                if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-                    $.ajax({
-                        url: `/products/${productId}`,
-                        method: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                // Elimina la fila del producto del DOM
-                                $(`#product-${productId}`).remove();
-                                alert("Producto eliminado exitosamente.");
-                            }
-                        },
-                        error: function(xhr) {
-                            alert("Ocurrió un error al eliminar el producto.");
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="{{ asset('js/products/index.js') }}"></script>
 @endpush

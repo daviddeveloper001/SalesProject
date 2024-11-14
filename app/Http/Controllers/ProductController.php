@@ -4,19 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    private $pagination = 10;
+    private $pagination = 3;
     public function index(Request $request)
     {
         $products = Product::latest()->paginate($this->pagination);
 
         if ($request->ajax()) {
+            // Transform each product to include formatted fields
+            $products = $products->getCollection()->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'format_price' => $product->format_price,
+                    'format_description' => $product->format_description,
+                    // Incluye otros campos que necesites
+                ];
+            });
+
             return response()->json([
                 'products' => $products
             ]);
@@ -24,6 +33,7 @@ class ProductController extends Controller
 
         return view('product.index', compact('products'));
     }
+
 
 
     public function create(Product $product): View
