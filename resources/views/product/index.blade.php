@@ -48,6 +48,6 @@
     </div>
 
 @endsection
-@push('javascript')
+{{-- @push('javascript')
     <script src="{{ asset('js/products/index.js') }}"></script>
-@endpush
+@endpush --}}
