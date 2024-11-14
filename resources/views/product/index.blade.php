@@ -24,7 +24,7 @@
                     @endif
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center table-flush" id="product-list">
+                    <table class="table align-items-center table-flush" id="product-table">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">ID</th>
@@ -40,7 +40,7 @@
                     </table>
                 </div>
 
-                <div class="card-footer py-4">
+                <div class="card-footer py-4" id="pagination">
                     {{ $products->links('pagination::bootstrap-4') }}
                 </div>
             </div>
