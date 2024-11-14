@@ -62,26 +62,3 @@
         </div>
     </div>
 @endsection
-@push('javascript')
-    <script>
-        $('#create-product-form').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: '{{ route('products.store') }}',
-                method: 'POST',
-                data: $(this).serialize(),
-                success: function(data) {
-                    if (data.success) {
-                        $('#product-list').append(`<div>${data.product.name}</div>`);
-                        $('#create-product-form')[0].reset();
-                        alert("Producto creado exitosamente.");
-                    }
-                },
-                error: function(xhr) {
-                    console.log("Error:", xhr);
-                }
-            });
-        });
-    </script>
-@endpush
