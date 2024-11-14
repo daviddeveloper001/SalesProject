@@ -12,7 +12,6 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Elimina la fila del producto del DOM
                         $(`#product-${productId}`).remove();
                         alert("Producto eliminado exitosamente.");
                     }

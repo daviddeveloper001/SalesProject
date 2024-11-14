@@ -43,6 +43,9 @@
                                     <td>{{ $product->FormatDescription }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="{{ route('products.edit', $product->id) }}"
+                                                class="btn btn-primary btn-sm mr-2 rounded" title="Editar"><i
+                                                    class="fas fa-edit"></i>Editar</a>
                                             <button type="button" class="btn btn-danger btn-sm btn-delete"
                                                 data-id="{{ $product->id }}" title="Eliminar">
                                                 <i class="fas fa-trash"> Eliminar</i>

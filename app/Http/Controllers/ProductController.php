@@ -45,6 +45,25 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
+    public function edit(Product $product): View
+    {
+        return view('product.edit', compact('product'));
+    }
+
+    public function update(ProductStoreRequest $request, Product $product)
+    {
+        $product->update($request->validated());
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'product' => $product
+            ]);
+        }
+
+        return redirect()->route('products.index');
+    }
+
 
     public function destroy(Request $request, Product $product)
     {

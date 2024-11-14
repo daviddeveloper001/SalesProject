@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::middleware(AuxiliarMiddleware::class)->group(function () {
-        Route::resource('products', ProductController::class)->except(['edit', 'update', 'show']);
+        Route::resource('products', ProductController::class)->except(['show']);
     });
 
     Route::middleware(VendedorMiddleware::class)->group(function () {
