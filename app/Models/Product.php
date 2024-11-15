@@ -31,17 +31,21 @@ class Product extends Model
         'price' => 'decimal:2',
     ];
 
+    //Relations
+
     public function sales(): HasMany
     {
         return $this->hasMany(Sale::class);
     }
+
+    //Getters
 
 
     public function getFormatDescriptionAttribute()
     {
         $description = $this->attributes['description'];
 
-        return $description = substr($description, 0, 40);
+        return $description = ucfirst(substr($description, 0, 40));
     }
 
     public function getFormatPriceAttribute()
@@ -49,5 +53,12 @@ class Product extends Model
         $price = $this->attributes['price'];
 
         return $price = number_format($price, 2,);
+    }
+
+    public function getFormatNameAttribute($key)
+    {
+        $name = $this->attributes['name'];
+
+        return ucwords($name);
     }
 }

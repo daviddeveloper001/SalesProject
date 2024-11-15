@@ -19,7 +19,7 @@ function fetchProducts(page = 1) {
                 $('#product-table tbody').append(`
                     <tr id="product-${product.id}">
                         <td>${product.id}</td>
-                        <td>${product.name}</td>
+                        <td>${product.format_name}</td>
                         <td>${product.format_price}</td>
                         <td>${product.format_description}</td>
                         <td>

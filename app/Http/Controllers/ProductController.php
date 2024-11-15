@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,9 +12,9 @@ class ProductController extends Controller
     private $pagination = 5;
     public function index(Request $request)
     {
-        $products = Product::query()->paginate($this->pagination);
+        $products = Product::query()->latest()->paginate($this->pagination);
         $products->getCollection()->transform(function ($product) {
-            return $product->append(['format_price', 'format_description']);
+            return $product->append(['format_price', 'format_description', 'format_name']);
         });
 
         // Respuesta AJAX
