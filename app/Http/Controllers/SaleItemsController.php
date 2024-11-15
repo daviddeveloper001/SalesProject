@@ -12,12 +12,20 @@ use Illuminate\Http\Request;
 class SaleItemsController extends Controller
 {
     private $pagination = 5;
-    public function index(Request $request): View
+    public function index(Request $request)
     {
 
-        $saleItems = SaleItem::latest()
+        $saleItems = SaleItem::query()->latest()
             ->with(['sale', 'product'])
             ->paginate($this->pagination);
+
+        $saleItems->getCollection()->transform(function ($saleItem) {
+            $saleItem->append('formatted_created');
+            if ($saleItem->product) {
+                $saleItem->product->append(['format_price', 'format_description', 'format_name']);
+            }
+            return $saleItem;
+        });
 
         if ($request->ajax()) {
             return response()->json([

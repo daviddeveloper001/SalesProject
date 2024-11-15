@@ -7,6 +7,7 @@ $.ajaxSetup({
 
 // Función para obtener y mostrar productos con paginación
 function fetchProducts(page = 1) {
+
     $.ajax({
         url: `/products?page=${page}`,  // URL con el número de página
         method: 'GET',
@@ -15,24 +16,32 @@ function fetchProducts(page = 1) {
             $('#product-table tbody').html('');  // Limpia el contenido de la tabla
             
             // Itera sobre los productos y los muestra en la tabla
-            data.products.data.forEach(product => {
-                $('#product-table tbody').append(`
-                    <tr id="product-${product.id}">
-                        <td>${product.id}</td>
-                        <td>${product.format_name}</td>
-                        <td>${product.format_price}</td>
-                        <td>${product.format_description}</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="/products/${product.id}/edit" class="btn btn-primary btn-sm mr-2 rounded" title="Editar"><i class="fas fa-edit"></i> Editar</a>
-                                <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="${product.id}" title="Eliminar">
-                                    <i class="fas fa-trash"></i> Eliminar
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `);
-            });
+            if (data.products.data.length > 0) {
+                data.products.data.forEach(product => {
+                    $('#product-table tbody').append(`
+                        <tr id="product-${product.id}">
+                            <td>${product.id}</td>
+                            <td>${product.format_name}</td>
+                            <td>${product.format_price}</td>
+                            <td>${product.format_description}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="/products/${product.id}/edit" class="btn btn-primary btn-sm mr-2 rounded" title="Editar"><i class="fas fa-edit"></i> Editar</a>
+                                    <button type="button" class="btn btn-danger btn-sm btn-delete product-delete" data-id="${product.id}" title="Eliminar">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
+                });
+            } else {
+                $('#saleItems-table tbody').html(`
+                <tr>
+                    <td colspan="7" style="text-align: center;">No se encontraron registros</td>
+                </tr>
+            `);
+            }
 
             // Actualiza la paginación
             updatePagination(data.products);
@@ -46,7 +55,7 @@ function fetchProducts(page = 1) {
 
 // Función para actualizar los enlaces de paginación en el frontend con estilo Bootstrap 4
 function updatePagination(products) {
-    $('#pagination').html('');  // Limpia la paginación actual
+    $('#pagination-products').html('');  // Limpia la paginación actual
     
     let paginationLinks = `<ul class="pagination">`;
     
@@ -84,15 +93,19 @@ function updatePagination(products) {
     }
 
     paginationLinks += `</ul>`;
-    $('#pagination').html(paginationLinks);  // Inserta los enlaces en el div de paginación
+    $('#pagination-products').html(paginationLinks);  // Inserta los enlaces en el div de paginación
 }
 
 $(document).ready(function() {
     // Carga inicial de productos en la primera página
-    fetchProducts();
+
+    if (window.location.pathname === '/products') {
+
+        fetchProducts();
+    }
 
     // Evento para manejar el click en los enlaces de paginación sin recargar la página
-    $(document).on('click', '.page-link', function(event) {
+    $(document).on('click', '#pagination-products .page-link', function(event) {
         event.preventDefault();
         const page = $(this).data('page');
         if (page) {
@@ -102,7 +115,7 @@ $(document).ready(function() {
     
 
     // Evento para eliminar un producto
-    $(document).on('click', '.btn-delete', function() {
+    $(document).on('click', '.product-delete', function() {
         const productId = $(this).data('id');
 
         if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {

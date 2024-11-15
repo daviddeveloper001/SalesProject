@@ -40,7 +40,7 @@
                     </table>
                 </div>
 
-                <div class="card-footer py-4" id="pagination">
+                <div class="card-footer py-4" id="pagination-products">
                     {{ $products->links('pagination::bootstrap-4') }}
                 </div>
             </div>

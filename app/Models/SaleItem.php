@@ -34,6 +34,7 @@ class SaleItem extends Model
         'product_id' => 'integer',
     ];
 
+    //Relations
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);
@@ -44,9 +45,17 @@ class SaleItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+    //Getters
+
     public function getFormatPriceAttribute()
     {
         $price = $this->attributes['price'];
         return number_format($price, 2, ',', '.');
+    }
+
+    public function getFormattedCreatedAttribute($key)
+    {
+        $created = $this->attributes['created_at'];
+        return date('d-m-Y', strtotime($created));
     }
 }
