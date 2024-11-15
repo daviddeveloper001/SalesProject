@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    private $pagination = 5;
+    private $pagination = 10;
     public function index(Request $request)
     {
         $products = Product::query()->latest()->paginate($this->pagination);
