@@ -27,6 +27,7 @@
 
             <form action="{{ route('products.update', $product) }}" method="POST" id="update-product-form">
                 @csrf
+                <input type="hidden" id="product-id" name="product_id" value="{{ $product->id }}">
                 <div class="form-group">
                     <label for="name">Nombre del Producto:</label>
                     <input type="text" id="name" name="name" class="form-control"
@@ -62,27 +63,3 @@
         </div>
     </div>
 @endsection
-@push('javascript')
-    <script>
-        $('#update-product-form').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: '{{ route('products.update', $product) }}',
-                method: 'PUT',
-                data: $(this).serialize(),
-                success: function(data) {
-                    if (data.success) {
-                        $('#product-list').append(`<div>${data.product.name}</div>`);
-                        $('#update-product-form')[0].reset();
-                        alert("Producto actualizado exitosamente.");
-                        window.location.href = "{{ route('products.index') }}";
-                    }
-                },
-                error: function(xhr) {
-                    console.log("Error:", xhr);
-                }
-            });
-        });
-    </script>
-@endpush

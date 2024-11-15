@@ -99,6 +99,7 @@ $(document).ready(function() {
             fetchProducts(page);
         }
     });
+    
 
     // Evento para eliminar un producto
     $(document).on('click', '.btn-delete', function() {
